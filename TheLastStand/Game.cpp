@@ -20,6 +20,10 @@ void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circle
     game.shape.setFillColor(sf::Color::Transparent);
     game.shape.setOutlineColor(sf::Color::White);
     game.shape.setOutlineThickness(WALL_THICKNESS);
+    
+
+
+
 }
 
 void RenderGame(Game& game, sf::RenderWindow& window)
