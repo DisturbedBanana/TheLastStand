@@ -12,7 +12,7 @@ int main()
 		while (window.pollEvent(event))
 		{
 			// Process any input event here
-			if (event.type == sf::Event::Closed)
+			//if (event.type == sf::Event::Closed)
 			{
 				window.close();
 			}
