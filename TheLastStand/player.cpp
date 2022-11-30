@@ -1,42 +1,35 @@
-#include "player.h"
+#include "Player.h"
 const sf::Vector2f M_GAME_SIZE = { 900, 650 };
 
-
-void player::mouvement(float circleRad, float deltaTime)
+void InitPlayer(Player& player, sf::Vector2f position)
 {
-	
-	angle += moveSpeed * deltaTime;
-	pos = sf::Vector2f((cos((angle / 360) * M_PI * 2) * circleRad), sin((angle / 360) * M_PI * 2) * circleRad);
-	playerShape.setPosition(pos);
-
-
-	
-}
-
-
-//void player::UpdatePlayer(player& player, float deltaTime)
-//{
-//	float deltaX = player.moveSpeed * player.direction * deltaTime;
-//	player.position.x += deltaX;
-//	player.playerShape.setPosition(player.position);
-//}
-
-void RenderPlayer(player& player, sf::RenderWindow& window)
-{
-	window.draw(player.playerShape);
-}
-
-void InitPlayer(player& player, sf::Vector2f position)
-{
-	player.playerShape.setPosition(position);
+	player.position = position;
+	player.playerShape.setPosition(player.position);
 	player.playerShape.setRadius(player.playerSize);
 	player.playerShape.setOrigin(player.playerSize, player.playerSize);
 	player.playerShape.setOutlineColor(sf::Color::Red);
 	player.playerShape.setFillColor(sf::Color::Red);
 	player.playerShape.setOutlineThickness(2.f);
-	player.pos = player.playerShape.getPosition();
-
 }
 
+void RenderPlayer(Player& player, sf::RenderWindow& window)
+{
+	window.draw(player.playerShape);
+}
 
+void UpdatePlayer(Player& player, float deltaTime, float circleRadius)
+{
+	//float deltaX = player.moveSpeed * player.direction * deltaTime;
+	//player.position.x += deltaX;
+	//player.playerShape.setPosition(player.position);
+	
+	player.angle += player.direction* deltaTime;
+	player.position.x = cos((player.angle / 360) * circleRadius) - 1;
+	player.position.y = sin((player.angle / 360) * circleRadius);
+	player.playerShape.setPosition(player.position);
+}
 
+void SetPlayerDirection(Player& player, float axis)
+{
+	player.direction = axis;
+}

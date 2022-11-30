@@ -3,18 +3,19 @@
 #include <math.h>
 # define M_PI           3.14159265358979323846  /* pi */
 
-struct player
+struct Player
 {
     sf::CircleShape playerShape;
     sf::Vector2f position;
 
-    float playerSize = 3.f;
-    float moveSpeed = 10.f;
+    float playerSize = 8.f;
+    float moveSpeed = 100.f;
+    float direction = 0;
     float angle = 0;
-    sf::Vector2f pos;
-
-    void mouvement(float cicleRad, float deltaTime);
-    //void UpdatePlayer(player& player, float deltaTime);
 };
-void RenderPlayer(player& player, sf::RenderWindow& window);
-void InitPlayer(player& player, sf::Vector2f position);
+
+void RenderPlayer(Player& player, sf::RenderWindow& window);
+void InitPlayer(Player& player, sf::Vector2f position);
+void UpdatePlayer(Player& player, float deltaTime, float circleRadius);
+void SetPlayerDirection(Player& player, float axis);
+

@@ -21,13 +21,22 @@ void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circle
     game.shape.setOutlineColor(sf::Color::White);
     game.shape.setOutlineThickness(WALL_THICKNESS);
     
+	InitPlayer(game.player, sf::Vector2f{ position.x, position.y - circleSize });
+}
 
-
-
+void UpdateGame(Game& game, float deltaTime)
+{
+    UpdatePlayer(game.player, deltaTime, game.circleSize);
 }
 
 void RenderGame(Game& game, sf::RenderWindow& window)
 {
     window.draw(game.shape);
     window.draw(game.circleShape);
+    RenderPlayer(game.player, window);
+}
+
+void ReceivePlayerInput(Game& game, float axis)
+{
+    SetPlayerDirection(game.player, axis);
 }

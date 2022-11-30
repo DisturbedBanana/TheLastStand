@@ -10,13 +10,8 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1000, 1000), "TheLastStand");
 	// Initialise everything below
-	player player;
 	Game game;
-	InitGame(game,
-		sf::Vector2f{ window.getSize().x / 2.0f, window.getSize().y / 2.0f },
-		GAME_SIZE, CIRCLE_RADIUS);
-
-	InitPlayer(player, sf::Vector2f((game.circleShape.getPosition().x + game.circleSize), game.circleShape.getPosition().y));
+	InitGame(game, sf::Vector2f{ window.getSize().x / 2.0f, window.getSize().y / 2.0f }, GAME_SIZE, CIRCLE_RADIUS);
 
 	// Game loop
 	sf::Clock mainClock;
@@ -33,16 +28,27 @@ int main()
 			{
 				window.close();
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			{
-				player.mouvement(game.circleSize, deltaTime);
-			}
-			
 		}
+
+		float axis = 0;
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			axis -= 1;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			axis += 1;
+		}
+
+		ReceivePlayerInput(game, axis);
+
+		UpdateGame(game, deltaTime);
+		
 		window.clear();
 		// Whatever I want to draw goes here
 		RenderGame(game, window);
-		RenderPlayer(player, window);
 		window.display();
 	}
 
