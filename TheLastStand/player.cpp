@@ -24,8 +24,8 @@ void UpdatePlayer(Player& player, float deltaTime, float circleRadius)
 	//player.playerShape.setPosition(player.position);
 	
 	player.angle += player.direction* deltaTime;
-	player.position.x = cos((player.angle / 360) * circleRadius) - 1;
-	player.position.y = sin((player.angle / 360) * circleRadius);
+	player.position.x += cos((player.angle / 360) * circleRadius) - 1;
+	player.position.y += sin((player.angle / 360) * circleRadius);
 	player.playerShape.setPosition(player.position);
 }
 

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "player.h"
+#include "BulletSpawner.h"
 
 struct Game
 {
@@ -12,6 +13,7 @@ struct Game
     float circleSize;
 
     Player player;
+    BulletSpawner bulletSpawner;
 };
 
 void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circleSize);

@@ -22,6 +22,7 @@ void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circle
     game.shape.setOutlineThickness(WALL_THICKNESS);
     
 	InitPlayer(game.player, sf::Vector2f{ position.x, position.y - circleSize });
+    InitBulletSpawner(game.bulletSpawner);
 }
 
 void UpdateGame(Game& game, float deltaTime)
@@ -34,6 +35,7 @@ void RenderGame(Game& game, sf::RenderWindow& window)
     window.draw(game.shape);
     window.draw(game.circleShape);
     RenderPlayer(game.player, window);
+	RenderBullets(game.bulletSpawner.pList, window);
 }
 
 void ReceivePlayerInput(Game& game, float axis)
