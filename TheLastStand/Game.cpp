@@ -10,7 +10,7 @@ void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circle
     game.circleSize = circleSize;
     game.circleShape.setPosition(position);
     game.circleShape.setRadius(circleSize);
-    game.circleShape.setOrigin(circleSize / 2.f, circleSize / 2.f);
+    game.circleShape.setOrigin(circleSize, circleSize);
     game.circleShape.setFillColor(sf::Color::Transparent);
     game.circleShape.setOutlineColor(sf::Color::Blue);
     game.circleShape.setOutlineThickness(CIRCLE_THICKNESS);
