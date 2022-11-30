@@ -4,6 +4,8 @@
 #include "player.h"
 #include "BulletSpawner.h"
 
+# define CIRCLE_POS sf::Vector2f circlePos = { window.getSize().x / 2.0f, window.getSize().y / 2.0f }
+
 struct Game
 {
     sf::Vector2f position;

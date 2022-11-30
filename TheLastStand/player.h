@@ -18,6 +18,6 @@ struct Player
 
 void RenderPlayer(Player& player, sf::RenderWindow& window);
 void InitPlayer(Player& player, sf::Vector2f position);
-void UpdatePlayer(Player& player, float deltaTime, float circleRadius);
+void UpdatePlayer(Player& player, float deltaTime, float circleRadius, sf::Vector2f circlePosition);
 void SetPlayerDirection(Player& player, float axis);
 

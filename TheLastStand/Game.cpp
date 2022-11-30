@@ -3,6 +3,7 @@
 const float WALL_THICKNESS = 6.f;
 const float CIRCLE_THICKNESS = 6.f;
 
+
 void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circleSize)
 {
     game.position = position;
@@ -27,7 +28,7 @@ void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circle
 
 void UpdateGame(Game& game, float deltaTime)
 {
-    UpdatePlayer(game.player, deltaTime, game.circleSize);
+    UpdatePlayer(game.player, deltaTime, game.circleSize, game.circleShape.getPosition());
 }
 
 void RenderGame(Game& game, sf::RenderWindow& window)

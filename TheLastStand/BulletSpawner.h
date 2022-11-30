@@ -20,4 +20,3 @@ Bullet* GetBulletAt(List* pList, int index);
 void AddBullet(List* pList, sf::Vector2f position, sf::Vector2f direction);
 void RenderBullets(List* pList, sf::RenderWindow& window);
 void RemoveBullet(List* pList, int index);
-

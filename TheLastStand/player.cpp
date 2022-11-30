@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Game.h"
 const sf::Vector2f M_GAME_SIZE = { 900, 650 };
 
 void InitPlayer(Player& player, sf::Vector2f position)
@@ -17,15 +18,11 @@ void RenderPlayer(Player& player, sf::RenderWindow& window)
 	window.draw(player.playerShape);
 }
 
-void UpdatePlayer(Player& player, float deltaTime, float circleRadius)
+void UpdatePlayer(Player& player, float deltaTime, float circleRadius, sf::Vector2f circlePosition)
 {
-	//float deltaX = player.moveSpeed * player.direction * deltaTime;
-	//player.position.x += deltaX;
-	//player.playerShape.setPosition(player.position);
-	
-	player.angle += player.direction* deltaTime;
-	player.position.x += cos((player.angle / 360) * circleRadius) - 1;
-	player.position.y += sin((player.angle / 360) * circleRadius);
+	player.angle += player.direction* deltaTime*player.moveSpeed;
+	player.position.x = cos(player.angle / 360 * 2 * M_PI) * circleRadius + circlePosition.x;
+	player.position.y = sin(player.angle / 360 * 2 * M_PI)  * circleRadius + circlePosition.y;
 	player.playerShape.setPosition(player.position);
 }
 

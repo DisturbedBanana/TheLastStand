@@ -44,6 +44,7 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 		{
 			AddBullet(game.bulletSpawner.pList, game.player.position, game.circleShape.getPosition());
+			
 		}
 
 		ReceivePlayerInput(game, axis);
