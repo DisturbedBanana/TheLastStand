@@ -37,7 +37,7 @@ void UpdateGame(Game& game, float deltaTime)
         //game over
 
     }
-    //game.ennemies.ennemiesTimer();
+    game.ennemies.ennemiesTimer(deltaTime);
 
 }
 

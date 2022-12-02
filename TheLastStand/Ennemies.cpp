@@ -47,16 +47,15 @@ void UpdateEnnemies(Ennemies& ennemies, float deltaTime)
 
 
 
-void Ennemies::ennemiesTimer(sf::Clock timer)
+void Ennemies::ennemiesTimer(float deltaTime)
 {
+    if (startClock == 0)
+        startClock = deltaTime;
 
-
-    sf::Time time1 = timer.getElapsedTime();
-    if (time1 > timeBeforeRespawn)
+    if (deltaTime - startClock > timeBeforeRespawn)
     {
-        
         all.push_back(InitEnemy(all.size() + 1, this->circleCenter));
-        time1 = timer.restart();
+        startClock = deltaTime;
     }
 
 

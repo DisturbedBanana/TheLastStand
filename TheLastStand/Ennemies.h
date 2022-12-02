@@ -19,10 +19,12 @@ struct Ennemy
 struct Ennemies
 {
     sf::Vector2f circleCenter;
-    sf::Time timeBeforeRespawn = sf::seconds(2);
+    float timeBeforeRespawn = 2.f;
     std::list<Ennemy*> all;
-    void ennemiesTimer(sf::Clock timer);
+    void ennemiesTimer(float deltaTime);
     void deleteAll();
+    float startClock = 0;
+
 };
 
 
