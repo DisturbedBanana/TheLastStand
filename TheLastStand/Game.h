@@ -3,6 +3,7 @@
 #include <iostream>
 #include "player.h"
 #include "BulletSpawner.h"
+#include "Ennemies.h"
 
 # define CIRCLE_POS sf::Vector2f circlePos = { window.getSize().x / 2.0f, window.getSize().y / 2.0f }
 
@@ -16,6 +17,7 @@ struct Game
 
     Player player;
     BulletSpawner bulletSpawner;
+    Ennemies ennemies;
 };
 
 void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circleSize);

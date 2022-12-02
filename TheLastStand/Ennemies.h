@@ -12,7 +12,7 @@ struct Ennemy
     float direction = 0;
     int index;
     float size = 10.f;
-    float moveSpeed = 100.f;
+    float moveSpeed = 0.001f;
 
 };
 
@@ -21,15 +21,16 @@ struct Ennemies
     sf::Vector2f circleCenter;
     sf::Time timeBeforeRespawn = sf::seconds(2);
     std::list<Ennemy*> all;
-    void ennemiesTimer();
+    void ennemiesTimer(sf::Clock timer);
+    void deleteAll();
 };
 
 
 
 
 
-Ennemy* InitEnemy(int index);
-void RendreEnnemies(Ennemies& ennemies, sf::RenderWindow window);
+Ennemy* InitEnemy(int index, sf::Vector2f circleCenter);
+void RendreEnnemies(Ennemies& ennemies, sf::RenderWindow& window);
 void InitEnnemies(Ennemies& ennemies, sf::Vector2f pos);
 void UpdateEnnemies(Ennemies& ennemies, float deltaTime);
 bool IsEnnemyOut(Ennemies& ennemies, float circleRadius);
