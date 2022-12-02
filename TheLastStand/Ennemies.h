@@ -4,7 +4,7 @@
 
 
 
-struct Ennemy
+struct Enemy
 {
     sf::CircleShape ennemisShape;
     sf::Vector2f position;
@@ -16,24 +16,24 @@ struct Ennemy
 
 };
 
-struct Ennemies
+struct Enemies
 {
     sf::Vector2f circleCenter;
     float timeBeforeRespawn = 2.f;
-    std::list<Ennemy*> all;
-    void ennemiesTimer(float deltaTime);
+    std::list<Enemy*> all;
     void deleteAll();
     float startClock = 0;
-
+    float elapsedTime = 0;
 };
 
 
 
 
 
-Ennemy* InitEnemy(int index, sf::Vector2f circleCenter);
-void RenderEnnemies(Ennemies& ennemies, sf::RenderWindow& window);
-Ennemy* InitEnemy(int index, sf::Vector2f pos);
-void InitEnnemies(Ennemies& ennemies, sf::Vector2f pos);
-void UpdateEnnemies(Ennemies& ennemies, float deltaTime);
-bool IsEnnemyOut(Ennemies& ennemies, float circleRadius);
+Enemy* InitEnemy(int index, sf::Vector2f circleCenter);
+void RenderEnemies(Enemies& ennemies, sf::RenderWindow& window);
+Enemy* InitEnemy(int index, sf::Vector2f pos);
+void InitEnemies(Enemies& ennemies, sf::Vector2f pos);
+void UpdateEnemies(Enemies& ennemies, float deltaTime);
+bool IsEnemyOut(Enemies& ennemies, float circleRadius);
+void EnemiesTimer(float deltaTime, Enemies& enemies);

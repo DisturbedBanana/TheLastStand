@@ -1,10 +1,11 @@
 #include "Ennemies.h"
+#include <iostream>
 
 
 
-bool IsEnnemyOut(Ennemies& ennemies, float circleRadius)
+bool IsEnemyOut(Enemies& ennemies, float circleRadius)
 {
-    std::list<Ennemy*>::iterator it = ennemies.all.begin();
+    std::list<Enemy*>::iterator it = ennemies.all.begin();
     for (int i = 0; i < ennemies.all.size(); i++)
     {
         
@@ -18,23 +19,23 @@ bool IsEnnemyOut(Ennemies& ennemies, float circleRadius)
         return false;
 
 }
-void RenderEnnemies(Ennemies& ennemies, sf::RenderWindow& window)
+void RenderEnemies(Enemies& ennemies, sf::RenderWindow& window)
 {
-    std::list<Ennemy*>::iterator it = ennemies.all.begin();
+    std::list<Enemy*>::iterator it = ennemies.all.begin();
     for (int i = 0; i < ennemies.all.size(); i++)
     {
         window.draw((*it)->ennemisShape);
         it++;
     }
 }
-void InitEnnemies(Ennemies& ennemies, sf::Vector2f pos)
+void InitEnemies(Enemies& ennemies, sf::Vector2f pos)
 {
     ennemies.circleCenter = pos;
     ennemies.all.push_back(InitEnemy(1, pos));
 }
-void UpdateEnnemies(Ennemies& ennemies, float deltaTime)
+void UpdateEnemies(Enemies& ennemies, float deltaTime)
 {
-    std::list<Ennemy*>::iterator it = ennemies.all.begin();
+    std::list<Enemy*>::iterator it = ennemies.all.begin();
     for (int i = 0; i < ennemies.all.size(); i++)
     {
         (*it)->position.x = (*it)->position.x + ((*it)->direction * (*it)->moveSpeed);
@@ -47,23 +48,21 @@ void UpdateEnnemies(Ennemies& ennemies, float deltaTime)
 
 
 
-void Ennemies::ennemiesTimer(float deltaTime)
+void EnemiesTimer(float deltaTime, Enemies& enemies)
 {
-    if (startClock == 0)
-        startClock = deltaTime;
+    enemies.elapsedTime += deltaTime;
 
-    if (deltaTime - startClock > timeBeforeRespawn)
+    if (enemies.elapsedTime >= enemies.timeBeforeRespawn)
     {
-        all.push_back(InitEnemy(all.size() + 1, this->circleCenter));
-        startClock = deltaTime;
+        std::cout << "spawn" << std::endl;
+        enemies.all.push_back(InitEnemy(enemies.all.size() + 1, enemies.circleCenter));
+        enemies.elapsedTime = 0;
     }
-
-
 }
 
-Ennemy* InitEnemy(int index, sf::Vector2f circleCenter)
+Enemy* InitEnemy(int index, sf::Vector2f circleCenter)
 {
-    Ennemy* ennemy = new Ennemy;
+    Enemy* ennemy = new Enemy;
     ennemy->position = circleCenter;
     ennemy->ennemisShape.setPosition(ennemy->position);
     ennemy->ennemisShape.setRadius(ennemy->size);
@@ -77,9 +76,9 @@ Ennemy* InitEnemy(int index, sf::Vector2f circleCenter)
 }
 
 
-void Ennemies::deleteAll()
+void Enemies::deleteAll()
 {
-    std::list<Ennemy*>::iterator it = this->all.begin();
+    std::list<Enemy*>::iterator it = this->all.begin();
     for (int i = 0; i < this->all.size(); i++)
     {
         it = this->all.erase(it);

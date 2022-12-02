@@ -19,7 +19,7 @@ struct Game
 
     Player player;
     BulletSpawner bulletSpawner;
-    Ennemies ennemies;
+    Enemies ennemies;
 };
 
 void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circleSize);

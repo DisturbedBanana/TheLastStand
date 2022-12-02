@@ -24,20 +24,22 @@ void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circle
     
 	InitPlayer(game.player, sf::Vector2f{ position.x, position.y - circleSize });
     InitBulletSpawner(game.bulletSpawner);
-    InitEnnemies(game.ennemies, game.circleShape.getPosition());
+    InitEnemies(game.ennemies, game.circleShape.getPosition());
 }
 
 void UpdateGame(Game& game, float deltaTime)
 {
     UpdatePlayer(game.player, deltaTime, game.circleSize, game.circleShape.getPosition());
-    UpdateEnnemies(game.ennemies, deltaTime);
-    if (IsEnnemyOut(game.ennemies, game.circleShape.getRadius()))
+    UpdateEnemies(game.ennemies, deltaTime);
+    if (IsEnemyOut(game.ennemies, game.circleShape.getRadius()))
     {
         printf("game over");
         //game over
 
     }
-    game.ennemies.ennemiesTimer(deltaTime);
+
+    //game.ennemies.ennemiesTimer(deltaTime);
+    EnemiesTimer(deltaTime, game.ennemies);
 
 }
 
@@ -48,7 +50,7 @@ void RenderGame(Game& game, sf::RenderWindow& window)
     window.draw(game.circleShape);
     RenderPlayer(game.player, window);
     RenderBullets(game.bulletSpawner.pList, window);
-    RenderEnnemies(game.ennemies, window);
+    RenderEnemies(game.ennemies, window);
 }
 
 void ReceivePlayerInput(Game& game, float axis)
