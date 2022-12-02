@@ -10,8 +10,8 @@ struct Player
     sf::CircleShape playerShape;
     sf::Vector2f position;
 
-    float playerSize = 8.f;
-    float moveSpeed = 100.f;
+    float playerSize = 20.f;
+    float moveSpeed = 250.f;
     float direction = 0;
     float angle = 0;
 };
