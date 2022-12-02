@@ -30,7 +30,8 @@ struct Ennemies
 
 
 Ennemy* InitEnemy(int index, sf::Vector2f circleCenter);
-void RendreEnnemies(Ennemies& ennemies, sf::RenderWindow& window);
+void RenderEnnemies(Ennemies& ennemies, sf::RenderWindow& window);
+Ennemy* InitEnemy(int index, sf::Vector2f pos);
 void InitEnnemies(Ennemies& ennemies, sf::Vector2f pos);
 void UpdateEnnemies(Ennemies& ennemies, float deltaTime);
 bool IsEnnemyOut(Ennemies& ennemies, float circleRadius);

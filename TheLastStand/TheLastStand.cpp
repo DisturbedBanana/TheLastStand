@@ -29,6 +29,11 @@ int main()
 			}
 		}
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			
+		}
+
 		float axis = 0;
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))

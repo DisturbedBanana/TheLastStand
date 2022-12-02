@@ -15,6 +15,8 @@ struct Game
     sf::CircleShape circleShape;
     float circleSize;
 
+    sf::Text score;
+
     Player player;
     BulletSpawner bulletSpawner;
     Ennemies ennemies;
@@ -24,4 +26,5 @@ void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circle
 void UpdateGame(Game& game, float deltaTime);
 void RenderGame(Game& game, sf::RenderWindow& window);
 void ReceivePlayerInput(Game& game, float axis);
+void Shoot(Game& game);
 

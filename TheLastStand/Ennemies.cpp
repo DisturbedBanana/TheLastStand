@@ -18,7 +18,7 @@ bool IsEnnemyOut(Ennemies& ennemies, float circleRadius)
         return false;
 
 }
-void RendreEnnemies(Ennemies& ennemies, sf::RenderWindow& window)
+void RenderEnnemies(Ennemies& ennemies, sf::RenderWindow& window)
 {
     std::list<Ennemy*>::iterator it = ennemies.all.begin();
     for (int i = 0; i < ennemies.all.size(); i++)

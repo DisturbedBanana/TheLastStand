@@ -73,4 +73,20 @@ void RemoveBullet(List* pList, int index)
 	pList->count--;
 }
 
+void UpdateBullets(List* pList, float deltaTime)
+{
+	if (pList->pFirst != nullptr)
+	{
+		Bullet* pBullet = pList->pFirst;
+
+		for (int i = 0; i <= (pList->count - 1); i++)
+		{
+			float deltaX = pBullet->bulletSpeed * deltaTime;
+			pBullet->position.x += deltaX;
+			pBullet->bulletShape.setPosition(pBullet->position);
+			pBullet = pBullet->next;
+		}
+	}
+}
+
 

@@ -41,16 +41,22 @@ void UpdateGame(Game& game, float deltaTime)
 
 }
 
+
 void RenderGame(Game& game, sf::RenderWindow& window)
 {
     window.draw(game.shape);
     window.draw(game.circleShape);
     RenderPlayer(game.player, window);
     RenderBullets(game.bulletSpawner.pList, window);
-    RendreEnnemies(game.ennemies, window);
+    RenderEnnemies(game.ennemies, window);
 }
 
 void ReceivePlayerInput(Game& game, float axis)
 {
     SetPlayerDirection(game.player, axis);
+}
+
+void Shoot(Game& game)
+{
+    AddBullet(game.bulletSpawner.pList, sf::Vector2f{ 100,100 }, game.circleShape.getPosition());
 }
