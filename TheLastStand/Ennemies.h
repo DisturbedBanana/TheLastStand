@@ -12,7 +12,7 @@ struct Enemy
     sf::Vector2f direction;
     int index;
     float size = 10.f;
-    float moveSpeed = 0.5f;
+    float moveSpeed = 100.f;
 
 };
 

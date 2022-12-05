@@ -8,15 +8,15 @@ bool IsEnemyOut(Enemies& ennemies, float circleRadius)
     std::list<Enemy*>::iterator it = ennemies.all.begin();
     for (int i = 0; i < ennemies.all.size(); i++)
     {
+		sf::Vector2f centerToEnemy = (*it)->position - ennemies.circleCenter;
+        float sqDistance = (centerToEnemy.x * centerToEnemy.x) + (centerToEnemy.y * centerToEnemy.y);
         
-        float distance = ((*it)->position.x * (*it)->position.x) + ((*it)->position.y * (*it)->position.y);
-        
-        if (distance - (circleRadius * circleRadius) <= 0) //sur ou à l'exterieur
+        if (sqDistance - (circleRadius * circleRadius) >= 0) //sur ou à l'exterieur
             return true;
         it++;
     }
 
-        return false;
+    return false;
 
 }
 void RenderEnemies(Enemies& ennemies, sf::RenderWindow& window)
@@ -73,10 +73,9 @@ Enemy* InitEnemy(int index, sf::Vector2f circleCenter, float rad)
     ennemy->ennemisShape.setFillColor(sf::Color::Green);
     ennemy->ennemisShape.setOutlineThickness(2.f);
     ennemy->index = index;
-    float r = rad * sqrt(rand() % 1);
-    float theta = rand() % 1 * 2 * 3.14159265358979323846;
-    ennemy->direction.x = circleCenter.x + r * cos(theta);
-    ennemy->direction.y = circleCenter.y + r * sin(theta);
+    float theta = (rand() / float(RAND_MAX)) * 2 * 3.14159265358979323846;
+    ennemy->direction.x = cos(theta);
+    ennemy->direction.y = sin(theta);
     return ennemy;
 }
 
