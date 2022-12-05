@@ -38,12 +38,12 @@ int main()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			axis -= 1;
+			axis += 1;
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			axis += 1;
+			axis -= 1;
 		}
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))

@@ -14,7 +14,7 @@ struct Game
     sf::RectangleShape shape;
     sf::CircleShape circleShape;
     float circleSize;
-
+    sf::Font font;
     sf::Text score;
 
     Player player;
