@@ -52,28 +52,49 @@ std::string GetAppPath() {
 
 void UpdateGame(Game& game, float deltaTime)
 {
-    UpdatePlayer(game.player, deltaTime, game.circleSize, game.circleShape.getPosition());
-    UpdateEnemies(game.ennemies, deltaTime);
-    if (IsEnemyOut(game.ennemies, game.circleShape.getRadius()))
+    if (!game.isLose)
     {
-        printf("game over");
-        //game over
+        UpdatePlayer(game.player, deltaTime, game.circleSize, game.circleShape.getPosition());
+        UpdateEnemies(game.ennemies, deltaTime);
+        EnemiesTimer(deltaTime, game.ennemies, game.circleSize);
+        
+        game.isLose = IsEnemyOut(game.ennemies, game.circleShape.getRadius());
+        
 
+        //game.ennemies.ennemiesTimer(deltaTime);
     }
-
-    //game.ennemies.ennemiesTimer(deltaTime);
-    EnemiesTimer(deltaTime, game.ennemies, game.circleSize);
+   
+    
 
 }
 
 void RenderGame(Game& game, sf::RenderWindow& window)
 {
-    window.draw(game.shape);
-    window.draw(game.circleShape);
-    RenderPlayer(game.player, window);
-    RenderBullets(game.bulletSpawner.pList, window);
-    RenderEnemies(game.ennemies, window);
-	window.draw(game.score);
+    if (!game.isLose)
+    {
+        window.draw(game.shape);
+        window.draw(game.circleShape);
+        RenderPlayer(game.player, window);
+        RenderBullets(game.bulletSpawner.pList, window);
+        RenderEnemies(game.ennemies, window);
+        window.draw(game.score);
+    }
+    else 
+    {
+        if (game.firstTime)
+        {
+            std::string temp = game.score.getString();
+            game.score.setPosition(window.getSize().x / 2.0f - 400, window.getSize().y / 2.0f);
+            game.score.setCharacterSize(50);
+            game.score.setString("Vous avez perdu, vous avez " + temp); //rajouter le nombre de score
+            game.ennemies.deleteAll();
+            game.firstTime = false;
+        }
+        window.draw(game.score);
+
+        
+        
+    }
 }
 
 void ReceivePlayerInput(Game& game, float axis)
