@@ -6,12 +6,12 @@ struct Bullet
 	sf::CircleShape bulletShape;
 	sf::Vector2f position;
 	sf::Vector2f direction;
-	float bulletSize = 4.f;
-	float bulletSpeed = 200.f;
+	float bulletSize = 9;
+	float bulletSpeed = 100;
 
 	Bullet* previous = nullptr;
 	Bullet* next = nullptr;
 };
 
-void InitBullet(Bullet* bullet);
+void InitBullet(Bullet* bullet, float playerAngle);
 

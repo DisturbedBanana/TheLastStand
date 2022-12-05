@@ -17,7 +17,7 @@ struct BulletSpawner
 void InitBulletSpawner(BulletSpawner& bulletSpawner);
 List* CreateBulletList();
 Bullet* GetBulletAt(List* pList, int index);
-void AddBullet(List* pList, sf::Vector2f position, sf::Vector2f target);
+void AddBullet(List* pList, sf::Vector2f position, float playerAngle);
 void RenderBullets(List* pList, sf::RenderWindow& window);
 void RemoveBullet(List* pList, int index);
 void UpdateBullets(List* pList, float deltaTime);

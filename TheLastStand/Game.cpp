@@ -6,6 +6,7 @@ const float CIRCLE_THICKNESS = 6.f;
 
 void InitScore(sf::Text& score, sf::Font& font);
 std::string GetAppPath();
+void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*> enemyList);
 
 void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circleSize)
 {
@@ -58,12 +59,13 @@ void UpdateGame(Game& game, float deltaTime)
         UpdateEnemies(game.ennemies, deltaTime);
         EnemiesTimer(deltaTime, game.ennemies, game.circleSize);
         
-        game.isLose = IsEnemyOut(game.ennemies, game.circleShape.getRadius());
+        //game.isLose = IsEnemyOut(game.ennemies, game.circleShape.getRadius());
         
         //game.ennemies.ennemiesTimer(deltaTime);
     }
    
-    
+    UpdateBullets(game.bulletSpawner.pList, deltaTime);
+	BulletsCollisions(game, game.bulletSpawner.pList, game.ennemies.all);
 
 }
 
@@ -102,7 +104,23 @@ void ReceivePlayerInput(Game& game, float axis)
     SetPlayerDirection(game.player, axis);
 }
 
-void Shoot(Game& game)
+void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*> enemyList) 
 {
-    AddBullet(game.bulletSpawner.pList, sf::Vector2f{ 100,100 }, game.circleShape.getPosition());
+    float bulletRadius = 9;
+    for (int i = 0; i <= pBulletList->count - 1; i++) 
+	{
+		Bullet* pBullet = GetBulletAt(pBulletList, i);
+		for (std::list<Enemy*>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
+		{
+			float xMin = (*it)->position.x - (*it)->size / 2 - bulletRadius;
+			float xMax = (*it)->position.x + (*it)->size / 2 + bulletRadius;
+			float yMin = (*it)->position.y - (*it)->size / 2 - bulletRadius;
+			float yMax = (*it)->position.y + (*it)->size / 2 + bulletRadius;
+			
+            if (((pBullet->position.x > xMin && pBullet->position.x < xMax) && (pBullet->position.y < yMin && pBullet->position.y < yMax)) /*|| pBullet->position == game.circleShape.getPosition()*/)
+            {
+                std::cout << "collision" << std::endl;
+            }
+		}
+	}
 }

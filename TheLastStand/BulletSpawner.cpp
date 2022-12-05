@@ -23,12 +23,12 @@ Bullet* GetBulletAt(List* pList, int index)
 	return pBullet;
 }
 
-void AddBullet(List* pList, sf::Vector2f position, sf::Vector2f target)
+void AddBullet(List* pList, sf::Vector2f position, float playerAngle)
 {
 	Bullet* pBullet = new Bullet;
 	pBullet->position = position;
-	pBullet->direction = position - target;
 	pBullet->bulletShape.setPosition(pBullet->position);
+	InitBullet(pBullet, playerAngle);
 	
 	if (pList->pFirst == nullptr)
 	{
@@ -81,8 +81,7 @@ void UpdateBullets(List* pList, float deltaTime)
 
 		for (int i = 0; i <= (pList->count - 1); i++)
 		{
-			float deltaX = pBullet->bulletSpeed * deltaTime;
-			pBullet->position.x += deltaX;
+			pBullet->position += pBullet->direction * deltaTime * pBullet->bulletSpeed;
 			pBullet->bulletShape.setPosition(pBullet->position);
 			pBullet = pBullet->next;
 		}

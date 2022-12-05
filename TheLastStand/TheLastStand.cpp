@@ -9,6 +9,7 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1000, 1000), "TheLastStand");
 	// Initialise everything below
+	bool isFireKeyPressed = false;
 	Game game;
 	InitGame(game, sf::Vector2f{ window.getSize().x / 2.0f, window.getSize().y / 2.0f }, GAME_SIZE, CIRCLE_RADIUS);
 
@@ -36,20 +37,25 @@ int main()
 
 		float axis = 0;
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 		{
 			axis += 1;
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
 			axis -= 1;
 		}
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isFireKeyPressed)
 		{
-			AddBullet(game.bulletSpawner.pList, game.player.position, game.circleShape.getPosition());
-			
+			AddBullet(game.bulletSpawner.pList, game.player.position, game.player.angle);
+			isFireKeyPressed = true;
+		}
+
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			isFireKeyPressed = false;
 		}
 
 		ReceivePlayerInput(game, axis);

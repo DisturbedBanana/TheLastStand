@@ -56,7 +56,6 @@ void EnemiesTimer(float deltaTime, Enemies& enemies, float rad)
 
     if (enemies.elapsedTime >= enemies.timeBeforeRespawn)
     {
-        std::cout << "spawn" << std::endl;
         enemies.all.push_back(InitEnemy(enemies.all.size() + 1, enemies.circleCenter, rad));
         enemies.elapsedTime = 0;
     }
