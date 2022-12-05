@@ -60,7 +60,6 @@ void UpdateGame(Game& game, float deltaTime)
         
         game.isLose = IsEnemyOut(game.ennemies, game.circleShape.getRadius());
         
-
         //game.ennemies.ennemiesTimer(deltaTime);
     }
    
@@ -84,9 +83,10 @@ void RenderGame(Game& game, sf::RenderWindow& window)
         if (game.firstTime)
         {
             std::string temp = game.score.getString();
-            game.score.setPosition(window.getSize().x / 2.0f - 400, window.getSize().y / 2.0f);
+            temp = "15498552";
+            game.score.setPosition(window.getSize().x / 2.0f - 400, window.getSize().y / 2.0f - 60);
             game.score.setCharacterSize(50);
-            game.score.setString("Vous avez perdu, vous avez " + temp); //rajouter le nombre de score
+            game.score.setString("Vous avez perdu,votre score : \n" + temp + " points"); //rajouter le nombre de score
             game.ennemies.deleteAll();
             game.firstTime = false;
         }

@@ -89,4 +89,9 @@ void Enemies::deleteAll()
     }
 }
 
+void Enemies::deleteEnemy(int index)
+{
+    //this->all.erase(index);
+}
+
 

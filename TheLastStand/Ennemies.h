@@ -22,6 +22,7 @@ struct Enemies
     float timeBeforeRespawn = 2.f;
     std::list<Enemy*> all;
     void deleteAll();
+    void deleteEnemy(int index);
     float startClock = 0;
     float elapsedTime = 0;
 };
