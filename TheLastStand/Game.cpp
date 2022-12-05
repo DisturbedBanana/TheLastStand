@@ -24,7 +24,7 @@ void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circle
     
 	InitPlayer(game.player, sf::Vector2f{ position.x, position.y - circleSize });
     InitBulletSpawner(game.bulletSpawner);
-    InitEnemies(game.ennemies, game.circleShape.getPosition());
+    InitEnemies(game.ennemies, game.circleShape.getPosition(), circleSize);
 }
 
 void UpdateGame(Game& game, float deltaTime)
@@ -39,7 +39,7 @@ void UpdateGame(Game& game, float deltaTime)
     }
 
     //game.ennemies.ennemiesTimer(deltaTime);
-    EnemiesTimer(deltaTime, game.ennemies);
+    EnemiesTimer(deltaTime, game.ennemies, game.circleSize);
 
 }
 

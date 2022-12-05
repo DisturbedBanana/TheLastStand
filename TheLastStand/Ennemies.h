@@ -9,10 +9,10 @@ struct Enemy
     sf::CircleShape ennemisShape;
     sf::Vector2f position;
     sf::Vector2f circleCenter;
-    float direction = 0;
+    sf::Vector2f direction;
     int index;
     float size = 10.f;
-    float moveSpeed = 0.001f;
+    float moveSpeed = 0.5f;
 
 };
 
@@ -30,10 +30,9 @@ struct Enemies
 
 
 
-Enemy* InitEnemy(int index, sf::Vector2f circleCenter);
+Enemy* InitEnemy(int index, sf::Vector2f circleCenter, float rad);
 void RenderEnemies(Enemies& ennemies, sf::RenderWindow& window);
-Enemy* InitEnemy(int index, sf::Vector2f pos);
-void InitEnemies(Enemies& ennemies, sf::Vector2f pos);
+void InitEnemies(Enemies& ennemies, sf::Vector2f pos, float rad);
 void UpdateEnemies(Enemies& ennemies, float deltaTime);
 bool IsEnemyOut(Enemies& ennemies, float circleRadius);
-void EnemiesTimer(float deltaTime, Enemies& enemies);
+void EnemiesTimer(float deltaTime, Enemies& enemies, float rad);

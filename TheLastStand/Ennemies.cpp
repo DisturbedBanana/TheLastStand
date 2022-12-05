@@ -28,18 +28,20 @@ void RenderEnemies(Enemies& ennemies, sf::RenderWindow& window)
         it++;
     }
 }
-void InitEnemies(Enemies& ennemies, sf::Vector2f pos)
+void InitEnemies(Enemies& ennemies, sf::Vector2f pos, float rad)
 {
     ennemies.circleCenter = pos;
-    ennemies.all.push_back(InitEnemy(1, pos));
+    ennemies.all.push_back(InitEnemy(1, pos, rad));
 }
 void UpdateEnemies(Enemies& ennemies, float deltaTime)
 {
     std::list<Enemy*>::iterator it = ennemies.all.begin();
     for (int i = 0; i < ennemies.all.size(); i++)
     {
-        (*it)->position.x = (*it)->position.x + ((*it)->direction * (*it)->moveSpeed);
-        (*it)->position.y = (*it)->position.y + ((*it)->direction * (*it)->moveSpeed);
+		float deltaX = (*it)->moveSpeed * deltaTime * (*it)->direction.x;
+		float deltaY = (*it)->moveSpeed * deltaTime * (*it)->direction.y;
+        (*it)->position.x += deltaX;
+        (*it)->position.y += deltaY;
         (*it)->ennemisShape.setPosition((*it)->position);
         it++;
     }
@@ -48,19 +50,19 @@ void UpdateEnemies(Enemies& ennemies, float deltaTime)
 
 
 
-void EnemiesTimer(float deltaTime, Enemies& enemies)
+void EnemiesTimer(float deltaTime, Enemies& enemies, float rad)
 {
     enemies.elapsedTime += deltaTime;
 
     if (enemies.elapsedTime >= enemies.timeBeforeRespawn)
     {
         std::cout << "spawn" << std::endl;
-        enemies.all.push_back(InitEnemy(enemies.all.size() + 1, enemies.circleCenter));
+        enemies.all.push_back(InitEnemy(enemies.all.size() + 1, enemies.circleCenter, rad));
         enemies.elapsedTime = 0;
     }
 }
 
-Enemy* InitEnemy(int index, sf::Vector2f circleCenter)
+Enemy* InitEnemy(int index, sf::Vector2f circleCenter, float rad)
 {
     Enemy* ennemy = new Enemy;
     ennemy->position = circleCenter;
@@ -71,7 +73,10 @@ Enemy* InitEnemy(int index, sf::Vector2f circleCenter)
     ennemy->ennemisShape.setFillColor(sf::Color::Green);
     ennemy->ennemisShape.setOutlineThickness(2.f);
     ennemy->index = index;
-    ennemy->direction = rand() % 361;
+    float r = rad * sqrt(rand() % 1);
+    float theta = rand() % 1 * 2 * 3.14159265358979323846;
+    ennemy->direction.x = circleCenter.x + r * cos(theta);
+    ennemy->direction.y = circleCenter.y + r * sin(theta);
     return ennemy;
 }
 
