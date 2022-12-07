@@ -3,10 +3,10 @@
 
 const float WALL_THICKNESS = 6.f;
 const float CIRCLE_THICKNESS = 6.f;
-
+int gameScore = 0;
 void InitScore(sf::Text& score, sf::Font& font);
 std::string GetAppPath();
-void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*>& enemyList);
+void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList);
 
 void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circleSize)
 {
@@ -61,7 +61,7 @@ void UpdateGame(Game& game, float deltaTime)
         UpdateBullets(game.bulletSpawner.pList, deltaTime);
         BulletsCollisions(game, game.bulletSpawner.pList, game.ennemies);
         IsBulletOut(game.bulletSpawner.pList, game.circleShape.getRadius(), game.circleShape.getPosition());
-        //game.isLose = IsEnemyOut(game.ennemies, game.circleShape.getRadius());
+        game.isLose = IsEnemyOut(game.ennemies, game.circleShape.getRadius());
         
     }
    
@@ -87,7 +87,7 @@ void RenderGame(Game& game, sf::RenderWindow& window)
             std::string temp = game.score.getString();
             game.score.setPosition(window.getSize().x / 2.0f - 400, window.getSize().y / 2.0f - 60);
             game.score.setCharacterSize(50);
-            game.score.setString("Vous avez perdu,votre score : \n" + temp + " points"); //rajouter le nombre de score
+            game.score.setString("Vous avez perdu, votre score : \n" + temp + " points"); //rajouter le nombre de score
             game.ennemies.deleteAll();
             game.firstTime = false;
         }
@@ -126,11 +126,12 @@ void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
 
             if (((pBullet->position.x > xMin && pBullet->position.x < xMax) && (pBullet->position.y > yMin && pBullet->position.y < yMax)) || pBullet->position == game.circleShape.getPosition())
             {
-                std::cout << "collision" << std::endl;
                 
                 it = enemyList.all.erase(it);
                 isDelet = true;
-                enemyList.killCounteur++;
+                enemyList.difficulty += enemyList.ratio;
+                gameScore += enemyList.points;
+                game.score.setString(std::to_string(gameScore));
                 RemoveBullet(pBulletList, i);
             }
             if(!isDelet)

@@ -25,7 +25,8 @@ struct Enemies
     void deleteAll();
     float startClock = 0;
     float elapsedTime = 0;
-    int killCounteur = 0;
+    float ratio = 0.05f;
+    int points = 10;
 };
 
 

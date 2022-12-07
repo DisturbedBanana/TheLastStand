@@ -18,7 +18,7 @@ struct Game
     sf::Text score;
     bool isLose = false;
     bool firstTime = true;
-
+    
     Player player;
     BulletSpawner bulletSpawner;
     Enemies ennemies;
