@@ -5,6 +5,8 @@
 const sf::Vector2f GAME_SIZE = { 900, 650 };
 const float CIRCLE_RADIUS = 275.f;
 
+bool isShootingOnCooldown = false;
+bool canTP = true;
 float shootCD = 0.4f;
 float timeElapsedInShootCD = 0;
 
@@ -12,7 +14,6 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1000, 1000), "TheLastStand");
 	// Initialise everything below
-	bool isShootingOnCooldown = false;
 	Game game;
 	InitGame(game, sf::Vector2f{ window.getSize().x / 2.0f, window.getSize().y / 2.0f }, GAME_SIZE, CIRCLE_RADIUS);
 
@@ -66,6 +67,17 @@ int main()
 		{
 			isShootingOnCooldown = false;
 			timeElapsedInShootCD = 0;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift) && canTP)
+		{
+			game.player.angle += 180;
+			canTP = false;
+		}
+
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+		{
+			canTP = true;
 		}
 
 		ReceivePlayerInput(game, axis);

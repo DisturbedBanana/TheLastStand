@@ -102,6 +102,11 @@ void ReceivePlayerInput(Game& game, float axis)
     SetPlayerDirection(game.player, axis);
 }
 
+void TeleportPlayer(Game& game)
+{
+    game.player.angle += 180;
+}
+
 void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
 {
     float bulletRadius = 9;
