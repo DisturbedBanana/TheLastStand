@@ -5,7 +5,8 @@
 const sf::Vector2f GAME_SIZE = { 900, 650 };
 const float CIRCLE_RADIUS = 275.f;
 
-float cooldown = 0;
+float shootCD = 0.4f;
+float timeElapsedInShootCD = 0;
 
 int main()
 {
@@ -58,13 +59,13 @@ int main()
 
 		if (isShootingOnCooldown)
 		{
-			cooldown += deltaTime;
+			timeElapsedInShootCD += deltaTime;
 		}
 
-		if (cooldown >= 1)
+		if (timeElapsedInShootCD >= shootCD)
 		{
 			isShootingOnCooldown = false;
-			cooldown = 0;
+			timeElapsedInShootCD = 0;
 		}
 
 		ReceivePlayerInput(game, axis);

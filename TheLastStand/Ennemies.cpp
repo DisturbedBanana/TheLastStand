@@ -30,9 +30,17 @@ void RenderEnemies(Enemies& ennemies, sf::RenderWindow& window)
 }
 void InitEnemies(Enemies& ennemies, sf::Vector2f pos, float rad)
 {
+    bool shouldRandomizeSeed = true;
+
+    if (shouldRandomizeSeed)
+    {
+        srand(time(0));
+        shouldRandomizeSeed = false;
+    }
     ennemies.circleCenter = pos;
     ennemies.all.push_back(InitEnemy(1, pos, rad));
 }
+
 void UpdateEnemies(Enemies& ennemies, float deltaTime)
 {
     std::list<Enemy*>::iterator it = ennemies.all.begin();

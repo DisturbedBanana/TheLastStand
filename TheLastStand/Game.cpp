@@ -35,7 +35,7 @@ void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circle
 void InitScore(sf::Text& score, sf::Font& font) {
 
     font.loadFromFile(GetAppPath() + "arial.ttf");
-    score.setString("example");
+    score.setString("Score : 0");
     score.setPosition(100, 100);
     score.setCharacterSize(30);
     score.setFillColor(sf::Color::Green);
@@ -84,10 +84,9 @@ void RenderGame(Game& game, sf::RenderWindow& window)
     {
         if (game.firstTime)
         {
-            std::string temp = game.score.getString();
             game.score.setPosition(window.getSize().x / 2.0f - 400, window.getSize().y / 2.0f - 60);
             game.score.setCharacterSize(50);
-            game.score.setString("Vous avez perdu, votre score : \n" + temp + " points"); //rajouter le nombre de score
+            game.score.setString("Vous avez perdu, votre score :  \n" + std::to_string(gameScore) + " points"); //rajouter le nombre de score
             game.ennemies.deleteAll();
             game.firstTime = false;
         }
@@ -131,7 +130,7 @@ void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
                 isDelet = true;
                 enemyList.difficulty += enemyList.ratio;
                 gameScore += enemyList.points;
-                game.score.setString(std::to_string(gameScore));
+                game.score.setString("Score : " + std::to_string(gameScore));
                 RemoveBullet(pBulletList, i);
             }
             if(!isDelet)

@@ -7,7 +7,7 @@ struct Bullet
 	sf::Vector2f position;
 	sf::Vector2f direction;
 	float bulletSize = 9;
-	float bulletSpeed = 100;
+	float bulletSpeed = 500;
 
 	Bullet* previous = nullptr;
 	Bullet* next = nullptr;
