@@ -5,11 +5,13 @@
 const sf::Vector2f GAME_SIZE = { 900, 650 };
 const float CIRCLE_RADIUS = 275.f;
 
+float cooldown = 0;
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1000, 1000), "TheLastStand");
 	// Initialise everything below
-	bool isFireKeyPressed = false;
+	bool isShootingOnCooldown = false;
 	Game game;
 	InitGame(game, sf::Vector2f{ window.getSize().x / 2.0f, window.getSize().y / 2.0f }, GAME_SIZE, CIRCLE_RADIUS);
 
@@ -47,15 +49,22 @@ int main()
 			axis -= 1;
 		}
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isFireKeyPressed)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isShootingOnCooldown)
 		{
 			AddBullet(game.bulletSpawner.pList, game.player.position, game.player.angle);
-			isFireKeyPressed = true;
+			isShootingOnCooldown = true;
+
 		}
 
-		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		if (isShootingOnCooldown)
 		{
-			isFireKeyPressed = false;
+			cooldown += deltaTime;
+		}
+
+		if (cooldown >= 1)
+		{
+			isShootingOnCooldown = false;
+			cooldown = 0;
 		}
 
 		ReceivePlayerInput(game, axis);
