@@ -6,7 +6,7 @@ const float CIRCLE_THICKNESS = 6.f;
 
 void InitScore(sf::Text& score, sf::Font& font);
 std::string GetAppPath();
-void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*> enemyList);
+void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*>& enemyList);
 
 void InitGame(Game& game, sf::Vector2f position, sf::Vector2f size, float circleSize)
 {
@@ -104,23 +104,37 @@ void ReceivePlayerInput(Game& game, float axis)
     SetPlayerDirection(game.player, axis);
 }
 
-void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*> enemyList) 
+void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*>& enemyList) 
 {
     float bulletRadius = 9;
+    bool isDelet = false;
     for (int i = 0; i <= pBulletList->count - 1; i++) 
 	{
+        std::list<Enemy*>::iterator it = enemyList.begin();
 		Bullet* pBullet = GetBulletAt(pBulletList, i);
-		for (std::list<Enemy*>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
-		{
-			float xMin = (*it)->position.x - (*it)->size / 2 - bulletRadius;
-			float xMax = (*it)->position.x + (*it)->size / 2 + bulletRadius;
-			float yMin = (*it)->position.y - (*it)->size / 2 - bulletRadius;
-			float yMax = (*it)->position.y + (*it)->size / 2 + bulletRadius;
-			
-            if (((pBullet->position.x > xMin && pBullet->position.x < xMax) && (pBullet->position.y < yMin && pBullet->position.y < yMax)) /*|| pBullet->position == game.circleShape.getPosition()*/)
+        while (it != enemyList.end())
+        {
+            if (isDelet)
+            {
+                isDelet = false;
+                it = enemyList.begin();
+
+            }
+            float xMin = (*it)->position.x - (*it)->size - bulletRadius;
+            float xMax = (*it)->position.x + (*it)->size + bulletRadius;
+            float yMin = (*it)->position.y - (*it)->size - bulletRadius;
+            float yMax = (*it)->position.y + (*it)->size + bulletRadius;
+
+            if (((pBullet->position.x > xMin && pBullet->position.x < xMax) && (pBullet->position.y > yMin && pBullet->position.y < yMax)) /*|| pBullet->position == game.circleShape.getPosition()*/)
             {
                 std::cout << "collision" << std::endl;
+
+                it = enemyList.erase(it);
+                isDelet = true;
+                RemoveBullet(pBulletList, i);
             }
-		}
+            if(!isDelet)
+                it++;
+        }
 	}
 }
