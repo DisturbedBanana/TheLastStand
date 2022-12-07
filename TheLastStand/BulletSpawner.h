@@ -21,3 +21,4 @@ void AddBullet(List* pList, sf::Vector2f position, float playerAngle);
 void RenderBullets(List* pList, sf::RenderWindow& window);
 void RemoveBullet(List* pList, int index);
 void UpdateBullets(List* pList, float deltaTime);
+void IsBulletOut(List* bulletList, float circleRadius, sf::Vector2f center);

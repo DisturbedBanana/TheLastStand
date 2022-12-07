@@ -58,14 +58,14 @@ void UpdateGame(Game& game, float deltaTime)
         UpdatePlayer(game.player, deltaTime, game.circleSize, game.circleShape.getPosition());
         UpdateEnemies(game.ennemies, deltaTime);
         EnemiesTimer(deltaTime, game.ennemies, game.circleSize);
-        
+        UpdateBullets(game.bulletSpawner.pList, deltaTime);
+        BulletsCollisions(game, game.bulletSpawner.pList, game.ennemies.all);
+        IsBulletOut(game.bulletSpawner.pList, game.circleShape.getRadius(), game.circleShape.getPosition());
         //game.isLose = IsEnemyOut(game.ennemies, game.circleShape.getRadius());
         
-        //game.ennemies.ennemiesTimer(deltaTime);
     }
    
-    UpdateBullets(game.bulletSpawner.pList, deltaTime);
-	BulletsCollisions(game, game.bulletSpawner.pList, game.ennemies.all);
+    
 
 }
 
@@ -85,7 +85,6 @@ void RenderGame(Game& game, sf::RenderWindow& window)
         if (game.firstTime)
         {
             std::string temp = game.score.getString();
-            temp = "15498552";
             game.score.setPosition(window.getSize().x / 2.0f - 400, window.getSize().y / 2.0f - 60);
             game.score.setCharacterSize(50);
             game.score.setString("Vous avez perdu,votre score : \n" + temp + " points"); //rajouter le nombre de score
@@ -125,7 +124,7 @@ void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*>& enemyLi
             float yMin = (*it)->position.y - (*it)->size - bulletRadius;
             float yMax = (*it)->position.y + (*it)->size + bulletRadius;
 
-            if (((pBullet->position.x > xMin && pBullet->position.x < xMax) && (pBullet->position.y > yMin && pBullet->position.y < yMax)) /*|| pBullet->position == game.circleShape.getPosition()*/)
+            if (((pBullet->position.x > xMin && pBullet->position.x < xMax) && (pBullet->position.y > yMin && pBullet->position.y < yMax)) || pBullet->position == game.circleShape.getPosition())
             {
                 std::cout << "collision" << std::endl;
 

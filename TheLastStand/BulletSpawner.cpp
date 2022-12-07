@@ -88,4 +88,17 @@ void UpdateBullets(List* pList, float deltaTime)
 	}
 }
 
+void IsBulletOut(List* bulletList, float circleRadius, sf::Vector2f center)
+{
+	for (int i = 0; i <= bulletList->count - 1; i++)
+	{
+		Bullet* pBullet = GetBulletAt(bulletList, i);
+		sf::Vector2f centerToEnemy = pBullet->position - center;
+		float sqDistance = (centerToEnemy.x * centerToEnemy.x) + (centerToEnemy.y * centerToEnemy.y);
+
+		if (sqDistance - (circleRadius * circleRadius) >= 0) //sur ou à l'exterieur
+			RemoveBullet(bulletList, i);
+	}
+}
+
 
