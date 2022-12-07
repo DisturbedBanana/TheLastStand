@@ -54,7 +54,7 @@ void EnemiesTimer(float deltaTime, Enemies& enemies, float rad)
 {
     enemies.elapsedTime += deltaTime;
 
-    if (enemies.elapsedTime >= enemies.timeBeforeRespawn)
+    if (enemies.elapsedTime * enemies.difficulty >= enemies.timeBeforeRespawn)
     {
         enemies.all.push_back(InitEnemy(enemies.all.size() + 1, enemies.circleCenter, rad));
         enemies.elapsedTime = 0;
@@ -88,9 +88,6 @@ void Enemies::deleteAll()
     }
 }
 
-void Enemies::deleteEnemy(int index)
-{
-    //this->all.erase(index);
-}
+
 
 

@@ -59,7 +59,7 @@ void UpdateGame(Game& game, float deltaTime)
         UpdateEnemies(game.ennemies, deltaTime);
         EnemiesTimer(deltaTime, game.ennemies, game.circleSize);
         UpdateBullets(game.bulletSpawner.pList, deltaTime);
-        BulletsCollisions(game, game.bulletSpawner.pList, game.ennemies.all);
+        BulletsCollisions(game, game.bulletSpawner.pList, game.ennemies);
         IsBulletOut(game.bulletSpawner.pList, game.circleShape.getRadius(), game.circleShape.getPosition());
         //game.isLose = IsEnemyOut(game.ennemies, game.circleShape.getRadius());
         
@@ -103,20 +103,20 @@ void ReceivePlayerInput(Game& game, float axis)
     SetPlayerDirection(game.player, axis);
 }
 
-void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*>& enemyList) 
+void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
 {
     float bulletRadius = 9;
     bool isDelet = false;
     for (int i = 0; i <= pBulletList->count - 1; i++) 
 	{
-        std::list<Enemy*>::iterator it = enemyList.begin();
+        std::list<Enemy*>::iterator it = enemyList.all.begin();
 		Bullet* pBullet = GetBulletAt(pBulletList, i);
-        while (it != enemyList.end())
+        while (it != enemyList.all.end())
         {
             if (isDelet)
             {
                 isDelet = false;
-                it = enemyList.begin();
+                it = enemyList.all.begin();
 
             }
             float xMin = (*it)->position.x - (*it)->size - bulletRadius;
@@ -127,9 +127,10 @@ void BulletsCollisions(Game& game, List* pBulletList, std::list<Enemy*>& enemyLi
             if (((pBullet->position.x > xMin && pBullet->position.x < xMax) && (pBullet->position.y > yMin && pBullet->position.y < yMax)) || pBullet->position == game.circleShape.getPosition())
             {
                 std::cout << "collision" << std::endl;
-
-                it = enemyList.erase(it);
+                
+                it = enemyList.all.erase(it);
                 isDelet = true;
+                enemyList.killCounteur++;
                 RemoveBullet(pBulletList, i);
             }
             if(!isDelet)
