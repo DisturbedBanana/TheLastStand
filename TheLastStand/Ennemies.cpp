@@ -68,7 +68,7 @@ void UpdateEnemies(Enemies& enemies, float deltaTime)
         {
             if ((*it)->size >= 0.1f)
             {
-                (*it)->size -= 10.f * deltaTime;
+                (*it)->size -= 25.f * deltaTime;
                 (*it)->ennemisShape.setRadius((*it)->size);
                 (*it)->ennemisShape.setOrigin((*it)->size, (*it)->size);
                 it++;
