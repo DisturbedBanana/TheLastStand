@@ -14,6 +14,9 @@ struct Enemy
     float size = 10.f;
     float moveSpeed = 100.f;
     bool isDead = false;
+    bool isInvincible = true;
+    float invincibilityTime = 0.7f;
+    float timeSinceInvicibilityFade = 0;
 };
 
 struct Enemies

@@ -8,8 +8,8 @@ void InitPlayer(Player& player, sf::Vector2f position)
 	player.playerShape.setPosition(player.position);
 	player.playerShape.setRadius(player.playerSize);
 	player.playerShape.setOrigin(player.playerSize, player.playerSize);
-	player.playerShape.setOutlineColor(sf::Color::Red);
-	player.playerShape.setFillColor(sf::Color::Red);
+	player.playerShape.setOutlineColor(sf::Color::White);
+	player.playerShape.setFillColor(sf::Color::White);
 	player.playerShape.setOutlineThickness(2.f);
 }
 

@@ -128,7 +128,7 @@ void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
 
             if (((pBullet->position.x > xMin && pBullet->position.x < xMax) && (pBullet->position.y > yMin && pBullet->position.y < yMax)) || pBullet->position == game.circleShape.getPosition())
             {
-                if (!(*it)->isDead)
+                if (!(*it)->isDead && !(*it)->isInvincible)
                 {
                     (*it)->isDead = true;
                     isDelet = true;
@@ -137,8 +137,6 @@ void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
                     game.score.setString("Score : " + std::to_string(game.gameScore));
                     RemoveBullet(pBulletList, i);
                 }
-              
-                
             }
             if(!isDelet)
                 it++;

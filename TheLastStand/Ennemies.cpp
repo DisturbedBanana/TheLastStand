@@ -53,8 +53,16 @@ void UpdateEnemies(Enemies& enemies, float deltaTime)
             (*it)->position.x += deltaX;
             (*it)->position.y += deltaY;
             (*it)->ennemisShape.setPosition((*it)->position);
+            (*it)->timeSinceInvicibilityFade += deltaTime;
+            if ((*it)->timeSinceInvicibilityFade >= (*it)->invincibilityTime && (*it)->isInvincible)
+            {
+                (*it)->isInvincible = false;
+                (*it)->ennemisShape.setFillColor(sf::Color::Red);
+                (*it)->ennemisShape.setOutlineColor(sf::Color::Red);
+            }
             it++;
 
+            
         }
         else
         {
@@ -68,6 +76,7 @@ void UpdateEnemies(Enemies& enemies, float deltaTime)
             else
                 it = enemies.enemiesList.erase(it);
         }
+
 
     }
 }
