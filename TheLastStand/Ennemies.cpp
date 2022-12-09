@@ -19,6 +19,7 @@ bool IsEnemyOut(Enemies& ennemies, float circleRadius)
     return false;
 
 }
+
 void RenderEnemies(Enemies& ennemies, sf::RenderWindow& window)
 {
     std::list<Enemy*>::iterator it = ennemies.enemiesList.begin();
@@ -28,6 +29,7 @@ void RenderEnemies(Enemies& ennemies, sf::RenderWindow& window)
         it++;
     }
 }
+
 void InitEnemies(Enemies& ennemies, sf::Vector2f pos, float rad)
 {
     bool shouldRandomizeSeed = true;
@@ -39,6 +41,23 @@ void InitEnemies(Enemies& ennemies, sf::Vector2f pos, float rad)
     }
     ennemies.circleCenter = pos;
     ennemies.enemiesList.push_back(InitEnemy(1, pos, rad));
+}
+
+Enemy* InitEnemy(int index, sf::Vector2f circleCenter, float rad)
+{
+    Enemy* ennemy = new Enemy;
+    ennemy->position = circleCenter;
+    ennemy->ennemisShape.setPosition(ennemy->position);
+    ennemy->ennemisShape.setRadius(ennemy->size);
+    ennemy->ennemisShape.setOrigin(ennemy->size, ennemy->size);
+    ennemy->ennemisShape.setOutlineColor(sf::Color::Green);
+    ennemy->ennemisShape.setFillColor(sf::Color::Green);
+    ennemy->ennemisShape.setOutlineThickness(2.f);
+    ennemy->index = index;
+    float theta = (rand() / float(RAND_MAX)) * 2 * 3.14159265358979323846;
+    ennemy->direction.x = cos(theta);
+    ennemy->direction.y = sin(theta);
+    return ennemy;
 }
 
 void UpdateEnemies(Enemies& enemies, float deltaTime)
@@ -61,8 +80,6 @@ void UpdateEnemies(Enemies& enemies, float deltaTime)
                 (*it)->ennemisShape.setOutlineColor(sf::Color::Red);
             }
             it++;
-
-            
         }
         else
         {
@@ -77,8 +94,6 @@ void UpdateEnemies(Enemies& enemies, float deltaTime)
             else
                 it = enemies.enemiesList.erase(it);
         }
-
-
     }
 }
 
@@ -96,24 +111,6 @@ void EnemiesTimer(float deltaTime, Enemies& enemies, float rad)
     }
 }
 
-Enemy* InitEnemy(int index, sf::Vector2f circleCenter, float rad)
-{
-    Enemy* ennemy = new Enemy;
-    ennemy->position = circleCenter;
-    ennemy->ennemisShape.setPosition(ennemy->position);
-    ennemy->ennemisShape.setRadius(ennemy->size);
-    ennemy->ennemisShape.setOrigin(ennemy->size, ennemy->size);
-    ennemy->ennemisShape.setOutlineColor(sf::Color::Green);
-    ennemy->ennemisShape.setFillColor(sf::Color::Green);
-    ennemy->ennemisShape.setOutlineThickness(2.f);
-    ennemy->index = index;
-    float theta = (rand() / float(RAND_MAX)) * 2 * 3.14159265358979323846;
-    ennemy->direction.x = cos(theta);
-    ennemy->direction.y = sin(theta);
-    return ennemy;
-}
-
-
 void Enemies::deleteAll()
 {
     std::list<Enemy*>::iterator it = this->enemiesList.begin();
@@ -122,7 +119,3 @@ void Enemies::deleteAll()
         it = this->enemiesList.erase(it);
     }
 }
-
-
-
-
