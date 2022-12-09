@@ -3,8 +3,6 @@
 
 const float WALL_THICKNESS = 6.f;
 const float CIRCLE_THICKNESS = 6.f;
-int gameScore = 0;
-void InitScore(sf::Text& score, sf::Font& font);
 std::string GetAppPath();
 void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList);
 
@@ -86,7 +84,7 @@ void RenderGame(Game& game, sf::RenderWindow& window)
         {
             game.score.setPosition(window.getSize().x / 2.0f - 400, window.getSize().y / 2.0f - 60);
             game.score.setCharacterSize(50);
-            game.score.setString("Vous avez perdu, votre score :  \n" + std::to_string(gameScore) + " points"); //rajouter le nombre de score
+            game.score.setString("Vous avez perdu, votre score :  \n" + std::to_string(game.gameScore) + " points"); //rajouter le nombre de score
             game.ennemies.deleteAll();
             game.firstTime = false;
         }
@@ -134,8 +132,8 @@ void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
                 it = enemyList.all.erase(it);
                 isDelet = true;
                 enemyList.difficulty += enemyList.ratio;
-                gameScore += enemyList.points;
-                game.score.setString("Score : " + std::to_string(gameScore));
+                game.gameScore += enemyList.points;
+                game.score.setString("Score : " + std::to_string(game.gameScore));
                 RemoveBullet(pBulletList, i);
             }
             if(!isDelet)

@@ -18,6 +18,8 @@ struct Game
     sf::Text score;
     bool isLose = false;
     bool firstTime = true;
+    int gameScore = 0;
+
     
     Player player;
     BulletSpawner bulletSpawner;
@@ -29,3 +31,5 @@ void UpdateGame(Game& game, float deltaTime);
 void RenderGame(Game& game, sf::RenderWindow& window);
 void ReceivePlayerInput(Game& game, float axis);
 void TeleportPlayer(Game& game);
+void InitScore(sf::Text& score, sf::Font& font);
+
