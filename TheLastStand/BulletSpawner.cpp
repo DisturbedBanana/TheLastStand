@@ -101,4 +101,10 @@ void IsBulletOut(List* bulletList, float circleRadius, sf::Vector2f center)
 	}
 }
 
-
+void RemoveAllBullets(List* bulletList)
+{
+	for (int i = 0; i < bulletList->count; i++)
+	{
+		RemoveBullet(bulletList, i);
+	}
+}
