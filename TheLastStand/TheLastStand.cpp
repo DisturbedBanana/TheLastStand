@@ -65,15 +65,7 @@ int main()
 
 		if (game.isLose && sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 		{
-			RemoveAllBullets(game.bulletSpawner.pList);
-			game.ennemies.deleteAll();
-			game.isLose = false;
-			game.firstTime = true;
-			game.score.setString("0");
-			InitScore(game.score, game.font);
-			game.ennemies.difficulty = 1;
-			game.player.angle = 0;
-			game.gameScore = 0;
+			game.reset();
 		}
 		if (isShootingOnCooldown)
 		{

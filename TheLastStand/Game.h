@@ -19,7 +19,7 @@ struct Game
     bool isLose = false;
     bool firstTime = true;
     int gameScore = 0;
-
+    void reset();
     
     Player player;
     BulletSpawner bulletSpawner;
@@ -32,4 +32,5 @@ void RenderGame(Game& game, sf::RenderWindow& window);
 void ReceivePlayerInput(Game& game, float axis);
 void TeleportPlayer(Game& game);
 void InitScore(sf::Text& score, sf::Font& font);
+
 

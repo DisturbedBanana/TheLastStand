@@ -141,3 +141,16 @@ void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
         }
 	}
 }
+
+void Game::reset()
+{
+    RemoveAllBullets(this->bulletSpawner.pList);
+    this->ennemies.deleteAll();
+    this->isLose = false;
+    this->firstTime = true;
+    this->score.setString("0");
+    InitScore(this->score, this->font);
+    this->ennemies.difficulty = 1;
+    this->player.angle = 0;
+    this->gameScore = 0;
+}
