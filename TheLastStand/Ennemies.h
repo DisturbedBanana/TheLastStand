@@ -13,7 +13,7 @@ struct Enemy
     int index;
     float size = 10.f;
     float moveSpeed = 100.f;
-
+    bool isDead = false;
 };
 
 struct Enemies
@@ -21,7 +21,7 @@ struct Enemies
     sf::Vector2f circleCenter;
     float timeBeforeRespawn = 2.f;
     float difficulty = 1;
-    std::list<Enemy*> all;
+    std::list<Enemy*> enemiesList;
     void deleteAll();
     float startClock = 0;
     float elapsedTime = 0;

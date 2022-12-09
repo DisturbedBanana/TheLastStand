@@ -5,8 +5,8 @@
 
 bool IsEnemyOut(Enemies& ennemies, float circleRadius)
 {
-    std::list<Enemy*>::iterator it = ennemies.all.begin();
-    for (int i = 0; i < ennemies.all.size(); i++)
+    std::list<Enemy*>::iterator it = ennemies.enemiesList.begin();
+    for (int i = 0; i < ennemies.enemiesList.size(); i++)
     {
 		sf::Vector2f centerToEnemy = (*it)->position - ennemies.circleCenter;
         float sqDistance = (centerToEnemy.x * centerToEnemy.x) + (centerToEnemy.y * centerToEnemy.y);
@@ -21,8 +21,8 @@ bool IsEnemyOut(Enemies& ennemies, float circleRadius)
 }
 void RenderEnemies(Enemies& ennemies, sf::RenderWindow& window)
 {
-    std::list<Enemy*>::iterator it = ennemies.all.begin();
-    for (int i = 0; i < ennemies.all.size(); i++)
+    std::list<Enemy*>::iterator it = ennemies.enemiesList.begin();
+    for (int i = 0; i < ennemies.enemiesList.size(); i++)
     {
         window.draw((*it)->ennemisShape);
         it++;
@@ -38,20 +38,37 @@ void InitEnemies(Enemies& ennemies, sf::Vector2f pos, float rad)
         shouldRandomizeSeed = false;
     }
     ennemies.circleCenter = pos;
-    ennemies.all.push_back(InitEnemy(1, pos, rad));
+    ennemies.enemiesList.push_back(InitEnemy(1, pos, rad));
 }
 
-void UpdateEnemies(Enemies& ennemies, float deltaTime)
+void UpdateEnemies(Enemies& enemies, float deltaTime)
 {
-    std::list<Enemy*>::iterator it = ennemies.all.begin();
-    for (int i = 0; i < ennemies.all.size(); i++)
+    std::list<Enemy*>::iterator it = enemies.enemiesList.begin();
+    for (int i = 0; i < enemies.enemiesList.size(); i++)
     {
-		float deltaX = (*it)->moveSpeed * deltaTime * (*it)->direction.x;
-		float deltaY = (*it)->moveSpeed * deltaTime * (*it)->direction.y;
-        (*it)->position.x += deltaX;
-        (*it)->position.y += deltaY;
-        (*it)->ennemisShape.setPosition((*it)->position);
-        it++;
+        if (!(*it)->isDead)
+        {
+            float deltaX = (*it)->moveSpeed * deltaTime * (*it)->direction.x;
+            float deltaY = (*it)->moveSpeed * deltaTime * (*it)->direction.y;
+            (*it)->position.x += deltaX;
+            (*it)->position.y += deltaY;
+            (*it)->ennemisShape.setPosition((*it)->position);
+            it++;
+
+        }
+        else
+        {
+            if ((*it)->size >= 0.1f)
+            {
+                (*it)->size -= 10.f * deltaTime;
+                (*it)->ennemisShape.setRadius((*it)->size);
+                it++;
+
+            }
+            else
+                it = enemies.enemiesList.erase(it);
+        }
+
     }
 }
 
@@ -64,7 +81,7 @@ void EnemiesTimer(float deltaTime, Enemies& enemies, float rad)
 
     if (enemies.elapsedTime * enemies.difficulty >= enemies.timeBeforeRespawn)
     {
-        enemies.all.push_back(InitEnemy(enemies.all.size() + 1, enemies.circleCenter, rad));
+        enemies.enemiesList.push_back(InitEnemy(enemies.enemiesList.size() + 1, enemies.circleCenter, rad));
         enemies.elapsedTime = 0;
     }
 }
@@ -89,10 +106,10 @@ Enemy* InitEnemy(int index, sf::Vector2f circleCenter, float rad)
 
 void Enemies::deleteAll()
 {
-    std::list<Enemy*>::iterator it = this->all.begin();
-    for (int i = 0; i < this->all.size(); i++)
+    std::list<Enemy*>::iterator it = this->enemiesList.begin();
+    for (int i = 0; i < this->enemiesList.size(); i++)
     {
-        it = this->all.erase(it);
+        it = this->enemiesList.erase(it);
     }
 }
 

@@ -111,14 +111,14 @@ void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
     bool isDelet = false;
     for (int i = 0; i <= pBulletList->count - 1; i++) 
 	{
-        std::list<Enemy*>::iterator it = enemyList.all.begin();
+        std::list<Enemy*>::iterator it = enemyList.enemiesList.begin();
 		Bullet* pBullet = GetBulletAt(pBulletList, i);
-        while (it != enemyList.all.end())
+        while (it != enemyList.enemiesList.end())
         {
             if (isDelet)
             {
                 isDelet = false;
-                it = enemyList.all.begin();
+                it = enemyList.enemiesList.begin();
 
             }
             float xMin = (*it)->position.x - (*it)->size - bulletRadius;
@@ -128,13 +128,17 @@ void BulletsCollisions(Game& game, List* pBulletList, Enemies& enemyList)
 
             if (((pBullet->position.x > xMin && pBullet->position.x < xMax) && (pBullet->position.y > yMin && pBullet->position.y < yMax)) || pBullet->position == game.circleShape.getPosition())
             {
+                if (!(*it)->isDead)
+                {
+                    (*it)->isDead = true;
+                    isDelet = true;
+                    enemyList.difficulty += enemyList.ratio;
+                    game.gameScore += enemyList.points;
+                    game.score.setString("Score : " + std::to_string(game.gameScore));
+                    RemoveBullet(pBulletList, i);
+                }
+              
                 
-                it = enemyList.all.erase(it);
-                isDelet = true;
-                enemyList.difficulty += enemyList.ratio;
-                game.gameScore += enemyList.points;
-                game.score.setString("Score : " + std::to_string(game.gameScore));
-                RemoveBullet(pBulletList, i);
             }
             if(!isDelet)
                 it++;

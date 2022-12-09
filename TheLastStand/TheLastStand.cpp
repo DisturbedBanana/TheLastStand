@@ -51,7 +51,7 @@ int main()
 			axis -= 1;
 		}
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isShootingOnCooldown)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isShootingOnCooldown && !game.isLose)
 		{
 			AddBullet(game.bulletSpawner.pList, game.player.position, game.player.angle);
 			isShootingOnCooldown = true;
